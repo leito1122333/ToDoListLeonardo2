@@ -12,37 +12,44 @@ import java.util.List;
 
 public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.TareaViewHolder> {
 
-    private List<Tarea> listaTareas;
+    private final List<Tarea> listaTareas;
 
-    public TareaAdapter(List<Tarea> listaTareas){
+    public TareaAdapter(List<Tarea> listaTareas) {
         this.listaTareas = listaTareas;
     }
 
     @NonNull
     @Override
-    public TareaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tarea, parent, false);
+    public TareaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_tarea, parent, false);
+
         return new TareaViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TareaViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull TareaViewHolder holder, int position) {
+
         Tarea tarea = listaTareas.get(position);
 
-        holder.tvId.setText(String.valueOf(tarea.getId()));
+        holder.tvId.setText(tarea.getDocumentId());
         holder.tvTitulo.setText(tarea.getTitulo());
         holder.tvDescripcion.setText(tarea.getDescripcion());
         holder.tvEstado.setText(tarea.getEstado());
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return listaTareas.size();
     }
 
     public static class TareaViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvId, tvTitulo, tvDescripcion, tvEstado;
+        TextView tvId;
+        TextView tvTitulo;
+        TextView tvDescripcion;
+        TextView tvEstado;
 
         public TareaViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -1,25 +1,28 @@
-package com.Cesde.todolistleonardo;
-
+package com.example.gestor_tareas;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import androidx.annotation.Nullable;
 
 public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
-    private static final String NOMBRE_BD = "administracion.db";
-    private static final int VERSION_BD = 1;
-
-    public AdminSQLiteOpenHelper(Context context) {
-        super(context, NOMBRE_BD, null, VERSION_BD);
+    public AdminSQLiteOpenHelper(@Nullable Context context,
+                                 @Nullable String name,
+                                 @Nullable SQLiteDatabase.CursorFactory factory,
+                                 int version) {
+        super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE tareas (" +
+        // En clase era: codigo, descripcion, precio
+        // Aquí: id, titulo, descripcion, estado
+        String query = "CREATE TABLE tareas (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "titulo TEXT NOT NULL, " +
-                "descripcion TEXT NOT NULL, " +
-                "estado TEXT NOT NULL)");
+                "titulo TEXT, " +
+                "descripcion TEXT, " +
+                "estado TEXT)";
+        db.execSQL(query);
     }
 
     @Override
