@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "693090736261",
+    "project_id": "gestortareas-77547",
+    "storage_bucket": "gestortareas-77547.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693090736261:android:1641380165e123a1b671ec",
+        "android_client_info": {
+          "package_name": "com.Cesde.todolistleonardo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1URE684VXETusmIBGgQKVZfpARAuBoUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
