@@ -147,3 +147,6 @@ La colección de Firestore se crea automáticamente cuando se guarda la primera 
 Proyecto académico desarrollado para la asignatura **Móviles II**.
 
 Uso exclusivamente educativo.
+
+evidencias 
+<img width="1553" height="831" alt="evidencia" src="https://github.com/user-attachments/assets/5b4cc408-30f8-4905-be30-3126677344a1" />
