@@ -1,10 +1,10 @@
-#  To-Do List App (Android)
+# 📋 To-Do List App (Android + Firebase)
 
-Aplicación móvil desarrollada en **Android Studio (Java + SQLite)** que permite gestionar tareas mediante operaciones CRUD y visualización con RecyclerView.
+Aplicación móvil desarrollada en **Android Studio (Java)** que permite gestionar tareas mediante operaciones CRUD utilizando **Firebase Firestore** como base de datos en la nube y visualización de información mediante **RecyclerView**.
 
 ---
 
-## 👨‍🎓 Información del Proyecto
+# 👨‍🎓 Información del Proyecto
 
 * **Estudiante:** Nilson Leonardo Gonzalez Sandoval
 * **Asignatura:** Móviles II
@@ -13,18 +13,19 @@ Aplicación móvil desarrollada en **Android Studio (Java + SQLite)** que permit
 
 ---
 
-## 🎯 Objetivo
+# 🎯 Objetivo
 
-Desarrollar una aplicación móvil funcional que permita la administración de tareas, aplicando conceptos de:
+Desarrollar una aplicación móvil funcional para la gestión de tareas, aplicando conceptos de:
 
-* Persistencia de datos con SQLite
-* Interfaces gráficas en Android
-* Uso de RecyclerView
-* Implementación de operaciones CRUD
+* Desarrollo Android con Java
+* Persistencia de datos en la nube mediante Firebase Firestore
+* Interfaces gráficas con Material Design
+* Implementación de RecyclerView
+* Operaciones CRUD (Crear, Leer, Actualizar y Eliminar)
 
 ---
 
-## ⚙️ Funcionalidades
+# ⚙️ Funcionalidades
 
 La aplicación permite:
 
@@ -33,71 +34,119 @@ La aplicación permite:
 * 🔍 Buscar tareas por ID
 * ✏️ Editar tareas
 * ❌ Eliminar tareas
+* ☁️ Almacenar información en Firebase Firestore
 
 ---
 
-## Base de Datos
+# 🗄️ Base de Datos
 
-Se utiliza SQLite con la siguiente estructura:
+Se utiliza **Firebase Firestore** con una colección llamada:
 
-**Tabla: ****`tareas`**
+```text
+tareas
+```
 
-| Campo       | Tipo    | Descripción                    |
-| ----------- | ------- | ------------------------------ |
-| id          | INTEGER | Clave primaria autoincremental |
-| titulo      | TEXT    | Título de la tarea             |
-| descripcion | TEXT    | Descripción de la tarea        |
-| estado      | TEXT    | Estado (pendiente/completada)  |
+Cada documento contiene la siguiente estructura:
+
+| Campo       | Tipo   |
+| ----------- | ------ |
+| titulo      | String |
+| descripcion | String |
+| estado      | String |
+
+Ejemplo:
+
+```json
+{
+  "titulo": "Realizar proyecto",
+  "descripcion": "Implementar CRUD con Firestore",
+  "estado": "Pendiente"
+}
+```
+
+Firestore genera automáticamente el ID de cada documento.
 
 ---
 
-##  Arquitectura del Proyecto
+# 🏗️ Arquitectura del Proyecto
 
-El proyecto sigue una estructura básica basada en:
+El proyecto está compuesto por:
 
+* **Modelo:** `Tarea.java`
 * **Adaptador:** `TareaAdapter.java`
 * **Controlador:** `MainActivity.java`
-* **Base de datos:** `AdminSQLiteOpenHelper.java`
-* **Interfaz:** XML + RecyclerView
+* **Base de datos:** Firebase Firestore
+* **Interfaz gráfica:** XML + RecyclerView + Material Components
 
 ---
 
-## 🖥️ Tecnologías Utilizadas
+# 🖥️ Tecnologías Utilizadas
 
 * Java
 * Android Studio
-* SQLite
+* Firebase Firestore
 * RecyclerView
+* Material Design Components
+* Gradle Kotlin DSL
 
 ---
 
-## 🚀 Ejecución del Proyecto
+# 🚀 Ejecución del Proyecto
 
-1. Clonar el repositorio:
+## 1. Clonar el repositorio
 
-   ```bash
-   git clone https://github.com/tuusuario/todorepo.git
-   ```
+```bash
+git clone https://github.com/TU_USUARIO/ToDoListLeonardo.git
+```
 
-2. Abrir en Android Studio
+## 2. Abrir el proyecto
 
-3. Ejecutar en emulador o dispositivo físico
+Abrir la carpeta del proyecto desde Android Studio.
+
+## 3. Configurar Firebase
+
+* Crear un proyecto en Firebase.
+* Registrar la aplicación Android.
+* Descargar el archivo `google-services.json`.
+* Copiar el archivo dentro de:
+
+```text
+app/google-services.json
+```
+
+## 4. Ejecutar la aplicación
+
+Ejecutar en un emulador o dispositivo físico con conexión a Internet.
 
 ---
 
-## 📌 Notas
+# 📱 Interfaz
 
-* El campo **estado** debe ingresarse como:
+La aplicación cuenta con:
 
-  * `pendiente`
-  * `completada`
-
-* La base de datos se crea automáticamente al ejecutar la aplicación.
+* Formulario para crear y editar tareas.
+* Selección del estado mediante Chips.
+* Botones para las operaciones CRUD.
+* Listado dinámico mediante RecyclerView.
 
 ---
 
+# 📌 Notas
 
+Los valores recomendados para el campo estado son:
 
-## 📄 Licencia
+* Pendiente
+* Completada
 
-Proyecto académico - uso educativo.
+La colección de Firestore se crea automáticamente cuando se guarda la primera tarea.
+
+---
+
+# 📄 Licencia
+
+Proyecto académico desarrollado para la asignatura **Móviles II**.
+
+Uso exclusivamente educativo.
+
+evidencias 
+<img width="1553" height="831" alt="evidencia" src="https://github.com/user-attachments/assets/5b4cc408-30f8-4905-be30-3126677344a1" />
