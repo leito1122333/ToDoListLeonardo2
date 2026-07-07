@@ -41,6 +41,8 @@ dependencies {
 
     implementation("com.google.firebase:firebase-firestore:25.1.1")
 
+    implementation("com.google.firebase:firebase-auth:23.2.0")
+
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     implementation("androidx.appcompat:appcompat:1.7.0")

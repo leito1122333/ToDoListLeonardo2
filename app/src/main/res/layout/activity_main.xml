@@ -1,148 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#F5F5F5">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Gestor de Tareas"
+        android:text="TO DO LIST"
+        android:textAlignment="center"
+        android:textStyle="bold"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:gravity="center"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp" />
+        android:textColor="#1976D2"
+        android:layout_marginBottom="12dp"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilId"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ID del documento"
-        android:layout_marginBottom="8dp">
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etId"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilTitulo"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Título de la tarea"
-        android:layout_marginBottom="8dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Título de la tarea"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDescripcion"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Descripción"
-        android:layout_marginBottom="8dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Descripción"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="GUARDAR TAREA"
+                android:layout_marginTop="15dp"
+                app:cornerRadius="15dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Estado de la tarea"
+        android:text="Mis Tareas"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroupEstado"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:singleSelection="true">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipPendiente"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pendiente"
-            android:checkable="true"
-            android:checked="true" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipCompletada"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Completada"
-            android:checkable="true" />
-
-    </com.google.android.material.chip.ChipGroup>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGuardar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guardar Tarea"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnBuscar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Buscar" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnEditar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Editar" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnBorrar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Borrar" />
-
-    </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnVerTodas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ver Todas"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp" />
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTareas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="CERRAR SESIÓN"
+        app:backgroundTint="#E53935"
+        app:cornerRadius="15dp"/>
 
 </LinearLayout>
