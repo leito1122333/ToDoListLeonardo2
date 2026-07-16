@@ -146,25 +146,6 @@ app/
 
 ---
 
-# 📸 Capturas
-
-
-Ejemplo:
-
-```
-/screenshots/login.png
-<img width="397" height="855" alt="image" src="https://github.com/user-attachments/assets/8a1c712f-2c2f-49a7-9ffb-404f2ed3c2fa" />
-
-/screenshots/register.png
-<img width="399" height="775" alt="image" src="https://github.com/user-attachments/assets/a5e142d9-6041-4ca6-835f-d7b718a06a16" />
-
-/screenshots/home.png
-<img width="405" height="760" alt="image" src="https://github.com/user-attachments/assets/aa688fa4-ace8-478b-85c4-9a28ce937a9a" />
-
-
-```
-
----
 
 # 📚 Aprendizajes
 
