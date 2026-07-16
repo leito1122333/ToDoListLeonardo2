@@ -1,6 +1,6 @@
-# 📋 To-Do List App (Android + Firebase)
+# 📋 To-Do List App
 
-Aplicación móvil desarrollada en **Android Studio (Java)** que permite gestionar tareas mediante operaciones CRUD utilizando **Firebase Firestore** como base de datos en la nube y visualización de información mediante **RecyclerView**.
+Aplicación móvil desarrollada en **Android Studio** utilizando **Java** y **Firebase Firestore**, diseñada para gestionar tareas de manera sencilla e intuitiva mediante operaciones CRUD y sincronización en tiempo real.
 
 ---
 
@@ -9,144 +9,187 @@ Aplicación móvil desarrollada en **Android Studio (Java)** que permite gestion
 * **Estudiante:** Nilson Leonardo Gonzalez Sandoval
 * **Asignatura:** Móviles II
 * **Docente:** Edgar Camilo Guerrero
-* **Proyecto:** To-Do List
+* **Institución:** CESDE
+
+---
+
+# 📖 Descripción
+
+To-Do List App es una aplicación Android que permite a los usuarios administrar sus tareas diarias mediante una interfaz moderna y fácil de usar.
+
+La aplicación implementa autenticación básica mediante registro e inicio de sesión, almacenamiento de información en Firebase Firestore y actualización automática de los datos gracias al uso de SnapshotListener.
 
 ---
 
 # 🎯 Objetivo
 
-Desarrollar una aplicación móvil funcional para la gestión de tareas, aplicando conceptos de:
-
-* Desarrollo Android con Java
-* Persistencia de datos en la nube mediante Firebase Firestore
-* Interfaces gráficas con Material Design
-* Implementación de RecyclerView
-* Operaciones CRUD (Crear, Leer, Actualizar y Eliminar)
+Desarrollar una aplicación móvil que permita gestionar tareas utilizando tecnologías actuales para el desarrollo Android, implementando buenas prácticas de programación, persistencia de datos en la nube y una interfaz amigable para el usuario.
 
 ---
 
-# ⚙️ Funcionalidades
+# ✨ Características
 
-La aplicación permite:
-
-* ✅ Crear tareas
-* 📋 Listar todas las tareas
-* 🔍 Buscar tareas por ID
-* ✏️ Editar tareas
-* ❌ Eliminar tareas
-* ☁️ Almacenar información en Firebase Firestore
-
----
-
-# 🗄️ Base de Datos
-
-Se utiliza **Firebase Firestore** con una colección llamada:
-
-```text
-tareas
-```
-
-Cada documento contiene la siguiente estructura:
-
-| Campo       | Tipo   |
-| ----------- | ------ |
-| titulo      | String |
-| descripcion | String |
-| estado      | String |
-
-Ejemplo:
-
-```json
-{
-  "titulo": "Realizar proyecto",
-  "descripcion": "Implementar CRUD con Firestore",
-  "estado": "Pendiente"
-}
-```
-
-Firestore genera automáticamente el ID de cada documento.
+* Registro de usuarios.
+* Inicio de sesión.
+* Crear tareas.
+* Editar tareas.
+* Eliminar tareas.
+* Visualizar tareas en tiempo real.
+* Actualización automática mediante SnapshotListener.
+* Interfaz moderna con Material Design.
+* Uso de RecyclerView para mostrar la información.
+* Integración con Firebase Firestore.
 
 ---
 
-# 🏗️ Arquitectura del Proyecto
-
-El proyecto está compuesto por:
-
-* **Modelo:** `Tarea.java`
-* **Adaptador:** `TareaAdapter.java`
-* **Controlador:** `MainActivity.java`
-* **Base de datos:** Firebase Firestore
-* **Interfaz gráfica:** XML + RecyclerView + Material Components
-
----
-
-# 🖥️ Tecnologías Utilizadas
+# 🛠️ Tecnologías utilizadas
 
 * Java
 * Android Studio
 * Firebase Firestore
 * RecyclerView
+* CardView
 * Material Design Components
-* Gradle Kotlin DSL
+* XML
+* Gradle
 
 ---
 
-# 🚀 Ejecución del Proyecto
+# 📂 Estructura del proyecto
 
-## 1. Clonar el repositorio
+```
+app/
+│
+├── java/
+│   └── com.Cesde.todolistleonardo/
+│       ├── LoginActivity.java
+│       ├── RegistroActivity.java
+│       ├── MainActivity.java
+│       ├── Tarea.java
+│       ├── TareaAdapter.java
+│       └── FirebaseConfig.java (si aplica)
+│
+├── res/
+│   ├── drawable/
+│   ├── layout/
+│   ├── mipmap/
+│   └── values/
+│
+└── AndroidManifest.xml
+```
+
+---
+
+# 🔥 Base de datos
+
+La aplicación utiliza **Firebase Firestore** como base de datos NoSQL.
+
+Cada documento almacena información como:
+
+* Título
+* Descripción
+* Estado de la tarea
+* Fecha de creación (si aplica)
+
+Las tareas se sincronizan automáticamente con Firestore, permitiendo visualizar los cambios en tiempo real.
+
+---
+
+# 📱 Funcionalidades principales
+
+### Registro
+
+Permite crear una cuenta para acceder a la aplicación.
+
+### Inicio de sesión
+
+Valida las credenciales registradas y permite ingresar al sistema.
+
+### Gestión de tareas
+
+El usuario puede:
+
+* Agregar nuevas tareas.
+* Modificar tareas existentes.
+* Eliminar tareas.
+* Visualizar todas las tareas almacenadas.
+
+### Sincronización en tiempo real
+
+Gracias a SnapshotListener, cualquier cambio realizado en Firestore se refleja inmediatamente en la aplicación sin necesidad de actualizar manualmente.
+
+---
+
+# 🚀 Cómo ejecutar el proyecto
+
+1. Clonar el repositorio.
 
 ```bash
-git clone https://github.com/TU_USUARIO/ToDoListLeonardo.git
+git clone https://github.com/leito1122333/ToDoListLeonardo2.git
 ```
 
-## 2. Abrir el proyecto
+2. Abrir el proyecto en Android Studio.
 
-Abrir la carpeta del proyecto desde Android Studio.
+3. Sincronizar Gradle.
 
-## 3. Configurar Firebase
+4. Crear un proyecto en Firebase.
 
-* Crear un proyecto en Firebase.
-* Registrar la aplicación Android.
-* Descargar el archivo `google-services.json`.
-* Copiar el archivo dentro de:
+5. Agregar el archivo **google-services.json** dentro de la carpeta:
 
-```text
-app/google-services.json
+```
+app/
 ```
 
-## 4. Ejecutar la aplicación
+6. Habilitar Firebase Firestore.
 
-Ejecutar en un emulador o dispositivo físico con conexión a Internet.
+7. Ejecutar la aplicación en un dispositivo físico o emulador.
 
 ---
 
-# 📱 Interfaz
+# 📸 Capturas
 
-La aplicación cuenta con:
 
-* Formulario para crear y editar tareas.
-* Selección del estado mediante Chips.
-* Botones para las operaciones CRUD.
-* Listado dinámico mediante RecyclerView.
+Ejemplo:
+
+```
+/screenshots/login.png
+<img width="397" height="855" alt="image" src="https://github.com/user-attachments/assets/8a1c712f-2c2f-49a7-9ffb-404f2ed3c2fa" />
+
+/screenshots/register.png
+<img width="399" height="775" alt="image" src="https://github.com/user-attachments/assets/a5e142d9-6041-4ca6-835f-d7b718a06a16" />
+
+/screenshots/home.png
+<img width="405" height="760" alt="image" src="https://github.com/user-attachments/assets/aa688fa4-ace8-478b-85c4-9a28ce937a9a" />
+
+
+```
 
 ---
 
-# 📌 Notas
+# 📚 Aprendizajes
 
-Los valores recomendados para el campo estado son:
+Durante el desarrollo del proyecto se fortalecieron conocimientos en:
 
-* Pendiente
-* Completada
+* Programación orientada a objetos.
+* Desarrollo de aplicaciones Android.
+* Firebase Firestore.
+* Persistencia de datos en la nube.
+* RecyclerView.
+* Adaptadores personalizados.
+* Material Design.
+* Arquitectura básica de aplicaciones móviles.
+* Manejo de eventos y listeners.
 
-La colección de Firestore se crea automáticamente cuando se guarda la primera tarea.
+---
+
+# 👨‍💻 Autor
+
+**Nilson Leonardo Gonzalez Sandoval**
+
+Proyecto académico desarrollado para la asignatura **Móviles II**.
 
 ---
 
 # 📄 Licencia
 
-Proyecto académico desarrollado para la asignatura **Móviles II**.
-
-Uso exclusivamente educativo.
-
-evidencias 
-<img width="1553" height="831" alt="evidencia" src="https://github.com/user-attachments/assets/5b4cc408-30f8-4905-be30-3126677344a1" />
+Este proyecto fue desarrollado con fines exclusivamente académicos.
