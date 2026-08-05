@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+
+    android:layout_margin="8dp"
+
+    app:cardCornerRadius="16dp"
+
+    app:cardElevation="5dp">
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+
+        android:padding="16dp">
+
+
+
+        <!-- CORREO -->
+
+
+        <TextView
+
+            android:id="@+id/tvCorreo"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:text="usuario@email.com"
+
+            android:textSize="17sp"
+
+            android:textStyle="bold"
+
+            android:textColor="#212121"
+
+            android:maxLines="2"
+
+            android:ellipsize="end"/>
+
+
+
+        <!-- ROL -->
+
+
+        <TextView
+
+            android:id="@+id/tvRol"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="6dp"
+
+            android:text="Rol: empleado"
+
+            android:textColor="#4CAF50"
+
+            android:textStyle="bold"
+
+            android:textSize="15sp"/>
+
+
+
+        <!-- BOTONES -->
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal"
+
+            android:gravity="end"
+
+            android:layout_marginTop="16dp">
+
+
+
+            <Button
+
+                android:id="@+id/btnCambiarRol"
+
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:text="Cambiar rol"/>
+
+
+
+            <Button
+
+                android:id="@+id/btnEliminarUsuario"
+
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:layout_marginStart="8dp"
+
+                android:text="Eliminar"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

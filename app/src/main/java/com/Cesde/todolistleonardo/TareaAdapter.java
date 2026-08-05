@@ -1,212 +1,344 @@
 package com.Cesde.todolistleonardo;
 
-import android.app.AlertDialog;
+
 import android.content.Context;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.ViewHolder> {
+import java.util.ArrayList;
 
-    private List<Tarea> lista;
-    private Context context;
 
-    public TareaAdapter(Context context, List<Tarea> lista) {
+
+/**
+ * ==========================================================
+ * TareaAdapter
+ * ==========================================================
+ *
+ * Adapter encargado de mostrar las tareas
+ * del usuario autenticado.
+ *
+ * Firestore maneja la actualización de datos mediante
+ * SnapshotListener desde MainActivity.
+ *
+ * Por eso este Adapter solamente muestra y ejecuta acciones.
+ *
+ * ==========================================================
+ */
+public class TareaAdapter
+        extends RecyclerView.Adapter<TareaAdapter.TareaViewHolder> {
+
+
+
+    private final Context context;
+
+
+    private final ArrayList<Tarea> listaTareas;
+
+
+
+    private final FirebaseFirestore db;
+
+
+
+
+    public TareaAdapter(
+            Context context,
+            ArrayList<Tarea> listaTareas
+    ) {
+
+
         this.context = context;
-        this.lista = lista;
+
+        this.listaTareas = listaTareas;
+
+        this.db = FirebaseFirestore.getInstance();
+
     }
+
+
+
+
+
+
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(
+    public TareaViewHolder onCreateViewHolder(
             @NonNull ViewGroup parent,
-            int viewType) {
+            int viewType
+    ) {
 
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_tarea,
-                        parent,
-                        false);
 
-        return new ViewHolder(view);
+
+        View vista =
+                LayoutInflater
+                        .from(parent.getContext())
+                        .inflate(
+                                R.layout.item_tarea,
+                                parent,
+                                false
+                        );
+
+
+
+        return new TareaViewHolder(vista);
+
+
     }
+
+
+
+
+
+
 
     @Override
     public void onBindViewHolder(
-            @NonNull ViewHolder holder,
-            int position) {
+            @NonNull TareaViewHolder holder,
+            int position
+    ) {
 
-        Tarea tarea = lista.get(position);
 
-        holder.tvId.setText(tarea.getId());
-        holder.tvTitulo.setText(tarea.getTitulo());
-        holder.tvDescripcion.setText(tarea.getDescripcion());
-        holder.tvEstado.setText(tarea.getEstado());
 
-        holder.itemView.setOnClickListener(v -> {
-            mostrarDialogEditar(tarea);
-        });
+        Tarea tarea =
+                listaTareas.get(position);
 
-        holder.itemView.setOnLongClickListener(v -> {
+
+
+
+        holder.tvTitulo.setText(
+                tarea.getTitulo()
+        );
+
+
+
+        holder.tvDescripcion.setText(
+                tarea.getDescripcion()
+        );
+
+
+
+        holder.tvEstado.setText(
+                "Estado: "
+                        + tarea.getEstado()
+        );
+
+
+
+
+
+        holder.btnEliminar.setOnClickListener(v -> {
+
 
             eliminarTarea(tarea);
 
-            return true;
+
+
         });
+
+
+
     }
+
+
+
+
+
+
 
     @Override
     public int getItemCount() {
-        return lista.size();
+
+
+        return listaTareas.size();
+
+
     }
 
-    private void mostrarDialogEditar(Tarea tarea) {
 
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(context);
 
-        builder.setTitle("Editar Tarea");
 
-        LinearLayout layout =
-                new LinearLayout(context);
 
-        layout.setOrientation(
-                LinearLayout.VERTICAL);
 
-        EditText etTitulo =
-                new EditText(context);
 
-        EditText etDescripcion =
-                new EditText(context);
+    /**
+     * Elimina una tarea desde Firestore.
+     *
+     * IMPORTANTE:
+     * No modificamos listaTareas aquí.
+     *
+     * MainActivity recibe el cambio mediante
+     * SnapshotListener y actualiza RecyclerView.
+     */
+    private void eliminarTarea(
+            Tarea tarea
+    ) {
 
-        etTitulo.setText(tarea.getTitulo());
-        etDescripcion.setText(
-                tarea.getDescripcion());
 
-        layout.addView(etTitulo);
-        layout.addView(etDescripcion);
 
-        builder.setView(layout);
+        if(tarea.getId() == null
+                ||
+                tarea.getId().isEmpty()) {
 
-        builder.setPositiveButton("Guardar",
-                (dialog, which) -> {
 
-                    Map<String, Object> datos =
-                            new HashMap<>();
 
-                    datos.put(
-                            "titulo",
-                            etTitulo.getText()
-                                    .toString());
+            Toast.makeText(
 
-                    datos.put(
-                            "descripcion",
-                            etDescripcion.getText()
-                                    .toString());
+                    context,
 
-                    FirebaseFirestore.getInstance()
-                            .collection("tareas")
-                            .document(tarea.getId())
-                            .update(datos)
-                            .addOnSuccessListener(unused -> {
+                    "No se pudo identificar la tarea",
 
-                                tarea.setTitulo(
-                                        etTitulo.getText()
-                                                .toString());
+                    Toast.LENGTH_SHORT
 
-                                tarea.setDescripcion(
-                                        etDescripcion.getText()
-                                                .toString());
+            ).show();
 
-                                notifyDataSetChanged();
 
-                                Toast.makeText(
-                                        context,
-                                        "Tarea actualizada",
-                                        Toast.LENGTH_SHORT
-                                ).show();
-                            });
+
+            return;
+
+
+        }
+
+
+
+
+
+
+
+        db.collection(
+                        Constantes.COLLECTION_TAREAS
+                )
+
+                .document(
+                        tarea.getId()
+                )
+
+                .delete()
+
+
+
+                .addOnSuccessListener(unused -> {
+
+
+
+                    Toast.makeText(
+
+                            context,
+
+                            "Tarea eliminada",
+
+                            Toast.LENGTH_SHORT
+
+                    ).show();
+
+
+
+                })
+
+
+
+                .addOnFailureListener(e -> {
+
+
+
+                    Toast.makeText(
+
+                            context,
+
+                            "Error eliminando tarea: "
+                                    + e.getMessage(),
+
+                            Toast.LENGTH_LONG
+
+                    ).show();
+
+
+
                 });
 
-        builder.setNegativeButton(
-                "Cancelar",
-                null);
 
-        builder.show();
+
     }
 
-    private void eliminarTarea(Tarea tarea) {
 
-        new AlertDialog.Builder(context)
-                .setTitle("Eliminar")
-                .setMessage("¿Desea eliminar esta tarea?")
-                .setPositiveButton("Sí",
-                        (dialog, which) -> {
 
-                            FirebaseFirestore.getInstance()
-                                    .collection("tareas")
-                                    .document(tarea.getId())
-                                    .delete()
-                                    .addOnSuccessListener(
-                                            unused -> {
 
-                                                lista.remove(
-                                                        tarea);
 
-                                                notifyDataSetChanged();
 
-                                                Toast.makeText(
-                                                        context,
-                                                        "Tarea eliminada",
-                                                        Toast.LENGTH_SHORT
-                                                ).show();
-                                            });
-                        })
-                .setNegativeButton(
-                        "No",
-                        null)
-                .show();
-    }
 
-    static class ViewHolder
+
+
+    /**
+     * ViewHolder
+     */
+    static class TareaViewHolder
             extends RecyclerView.ViewHolder {
 
-        TextView tvId;
+
+
         TextView tvTitulo;
+
         TextView tvDescripcion;
+
         TextView tvEstado;
 
-        public ViewHolder(@NonNull View itemView) {
+
+        Button btnEliminar;
+
+
+
+
+
+        public TareaViewHolder(
+                @NonNull View itemView
+        ) {
+
             super(itemView);
 
-            tvId =
-                    itemView.findViewById(
-                            R.id.tvItemId);
+
 
             tvTitulo =
                     itemView.findViewById(
-                            R.id.tvItemTitulo);
+                            R.id.tvTitulo
+                    );
+
+
 
             tvDescripcion =
                     itemView.findViewById(
-                            R.id.tvItemDescripcion);
+                            R.id.tvDescripcion
+                    );
+
+
 
             tvEstado =
                     itemView.findViewById(
-                            R.id.tvItemEstado);
+                            R.id.tvEstado
+                    );
+
+
+
+            btnEliminar =
+                    itemView.findViewById(
+                            R.id.btnEliminar
+                    );
+
+
         }
+
     }
+
+
 }

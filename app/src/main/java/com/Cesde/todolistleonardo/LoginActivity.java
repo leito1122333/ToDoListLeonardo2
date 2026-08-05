@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,16 +20,29 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnIrRegistro;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private SesionManager sesionManager;
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+        mAuth = FirebaseAuth.getInstance();
+        sesionManager = new SesionManager(this);
 
-            startActivity(
-                    new Intent(this, MainActivity.class)
+        if (mAuth.getCurrentUser() != null && sesionManager.haySesion()) {
+
+            Intent intent = new Intent(
+                    LoginActivity.this,
+                    MainActivity.class
             );
+
+            intent.setFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK |
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+            );
+
+            startActivity(intent);
 
             finish();
         }
@@ -40,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        sesionManager = new SesionManager(this);
 
         etCorreo = findViewById(R.id.etCorreo);
         etPassword = findViewById(R.id.etPassword);
@@ -51,23 +67,23 @@ public class LoginActivity extends AppCompatActivity {
 
         btnIrRegistro.setOnClickListener(v -> {
 
-            Intent intent =
-                    new Intent(
-                            LoginActivity.this,
-                            RegistroActivity.class
-                    );
+            Intent intent = new Intent(
+                    LoginActivity.this,
+                    RegistroActivity.class
+            );
 
             startActivity(intent);
+
         });
     }
 
+    /**
+     * Inicia sesión y obtiene el rol del usuario desde Firestore.
+     */
     private void iniciarSesion() {
 
-        String correo =
-                etCorreo.getText().toString().trim();
-
-        String password =
-                etPassword.getText().toString().trim();
+        String correo = etCorreo.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
 
         if (correo.isEmpty()) {
 
@@ -93,36 +109,106 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setEnabled(false);
 
-        mAuth.signInWithEmailAndPassword(
-                        correo,
-                        password
-                )
+        mAuth.signInWithEmailAndPassword(correo, password)
+
                 .addOnSuccessListener(authResult -> {
 
-                    Toast.makeText(
-                            this,
-                            "Inicio de sesión correcto",
-                            Toast.LENGTH_SHORT
-                    ).show();
+                    String uid = authResult.getUser().getUid();
 
-                    startActivity(
-                            new Intent(
-                                    this,
-                                    MainActivity.class
-                            )
-                    );
+                    db.collection(Constantes.COLLECTION_USUARIOS)
+                            .document(uid)
+                            .get()
 
-                    finish();
+                            .addOnSuccessListener(documentSnapshot -> {
+
+                                if (!documentSnapshot.exists()) {
+
+                                    btnLogin.setEnabled(true);
+
+                                    Toast.makeText(
+                                            LoginActivity.this,
+                                            "No existe información del usuario.",
+                                            Toast.LENGTH_LONG
+                                    ).show();
+
+                                    mAuth.signOut();
+
+                                    return;
+                                }
+
+                                Usuario usuario =
+                                        documentSnapshot.toObject(Usuario.class);
+
+                                if (usuario == null) {
+
+                                    btnLogin.setEnabled(true);
+
+                                    Toast.makeText(
+                                            LoginActivity.this,
+                                            "Error al cargar los datos del usuario.",
+                                            Toast.LENGTH_LONG
+                                    ).show();
+
+                                    mAuth.signOut();
+
+                                    return;
+                                }
+
+                                sesionManager.guardarSesion(
+                                        usuario.getUid(),
+                                        usuario.getCorreo(),
+                                        usuario.getNombre(),
+                                        usuario.getRol()
+                                );
+
+                                Toast.makeText(
+                                        LoginActivity.this,
+                                        "Bienvenido " + usuario.getRol(),
+                                        Toast.LENGTH_SHORT
+                                ).show();
+
+                                Intent intent = new Intent(
+                                        LoginActivity.this,
+                                        MainActivity.class
+                                );
+
+                                intent.setFlags(
+                                        Intent.FLAG_ACTIVITY_NEW_TASK |
+                                                Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                );
+
+                                startActivity(intent);
+
+                                finish();
+
+                            })
+
+                            .addOnFailureListener(e -> {
+
+                                btnLogin.setEnabled(true);
+
+                                Toast.makeText(
+                                        LoginActivity.this,
+                                        e.getMessage(),
+                                        Toast.LENGTH_LONG
+                                ).show();
+
+                            });
+
                 })
+
                 .addOnFailureListener(e -> {
 
                     btnLogin.setEnabled(true);
 
                     Toast.makeText(
-                            this,
+                            LoginActivity.this,
                             "Error: " + e.getMessage(),
                             Toast.LENGTH_LONG
                     ).show();
+
                 });
+
     }
+
 }

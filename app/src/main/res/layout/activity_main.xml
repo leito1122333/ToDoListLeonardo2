@@ -3,92 +3,218 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical"
+
     android:padding="16dp"
+
     android:background="#F5F5F5">
 
+
+    <!-- TITULO -->
+
     <TextView
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
+
         android:text="TO DO LIST"
+
         android:textAlignment="center"
+
         android:textStyle="bold"
+
         android:textSize="24sp"
+
         android:textColor="#1976D2"
+
         android:layout_marginBottom="12dp"/>
 
+
+
+    <!-- CARD CREAR TAREA -->
+
     <androidx.cardview.widget.CardView
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
+
         app:cardCornerRadius="20dp"
+
         app:cardElevation="6dp">
 
+
         <LinearLayout
+
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+
             android:orientation="vertical"
+
             android:padding="16dp">
 
+
             <com.google.android.material.textfield.TextInputLayout
+
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content">
 
+
                 <com.google.android.material.textfield.TextInputEditText
+
                     android:id="@+id/etTitulo"
+
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
-                    android:hint="Título de la tarea"/>
+
+                    android:hint="Título de la tarea"
+
+                    android:maxLines="1"/>
+
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
+
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
+
                 android:layout_marginTop="10dp">
 
+
                 <com.google.android.material.textfield.TextInputEditText
+
                     android:id="@+id/etDescripcion"
+
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
-                    android:hint="Descripción"/>
+
+                    android:hint="Descripción"
+
+                    android:inputType="textMultiLine"
+
+                    android:maxLines="3"/>
+
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+
             <com.google.android.material.button.MaterialButton
+
                 android:id="@+id/btnGuardar"
+
                 android:layout_width="match_parent"
+
                 android:layout_height="55dp"
-                android:text="GUARDAR TAREA"
+
                 android:layout_marginTop="15dp"
+
+                android:minHeight="55dp"
+
+                android:text="GUARDAR TAREA"
+
                 app:cornerRadius="15dp"/>
+
 
         </LinearLayout>
 
+
     </androidx.cardview.widget.CardView>
 
+
+
+    <!-- TITULO LISTA -->
+
     <TextView
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
+
         android:text="Mis Tareas"
+
         android:textStyle="bold"
+
         android:textSize="18sp"
+
         android:layout_marginTop="16dp"
+
         android:layout_marginBottom="8dp"/>
 
+
+
+    <!-- LISTA -->
+
     <androidx.recyclerview.widget.RecyclerView
+
         android:id="@+id/rvTareas"
+
         android:layout_width="match_parent"
+
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+
+        android:layout_weight="1"
+
+        android:clipToPadding="false"
+
+        android:paddingBottom="8dp"/>
+
+
+
+    <!-- ADMIN -->
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCerrarSesion"
+
+        android:id="@+id/btnPanelUsuarios"
+
         android:layout_width="match_parent"
+
         android:layout_height="55dp"
-        android:text="CERRAR SESIÓN"
-        app:backgroundTint="#E53935"
+
+        android:minHeight="55dp"
+
+        android:layout_marginBottom="10dp"
+
+        android:text="PANEL DE ADMINISTRACIÓN"
+
+        android:visibility="gone"
+
+        app:backgroundTint="#1565C0"
+
         app:cornerRadius="15dp"/>
+
+
+
+    <!-- CERRAR SESION -->
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/btnCerrarSesion"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="55dp"
+
+        android:minHeight="55dp"
+
+        android:text="CERRAR SESIÓN"
+
+        app:backgroundTint="#E53935"
+
+        app:cornerRadius="15dp"/>
+
 
 </LinearLayout>
